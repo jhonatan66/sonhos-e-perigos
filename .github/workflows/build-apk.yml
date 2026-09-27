@@ -24,6 +24,10 @@ jobs:
 
       - name: Extrair projeto
         run: unzip -q Sonhos_e_Perigos_Android.zip -d projeto
+        
+      - name: Copiar configurações AndroidX
+        run: cp gradle.properties projeto/gradle.properties
+  
 
       - name: Compilar APK
         working-directory: projeto
