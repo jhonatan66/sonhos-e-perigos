@@ -35,10 +35,32 @@ jobs:
 
           arquivo = Path("projeto/app/src/main/AndroidManifest.xml")
           texto = arquivo.read_text()
+
           texto = texto.replace(
               'android:label="Sonhos & Perigos"',
               'android:label="Sonhos &amp; Perigos"'
           )
+
+          arquivo.write_text(texto)
+          PY
+
+      - name: Adicionar Material3
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+
+          arquivo = Path("projeto/app/build.gradle.kts")
+          texto = arquivo.read_text()
+
+          dep = 'implementation("com.google.android.material:material:1.13.0")'
+
+          if dep not in texto:
+              texto = texto.replace(
+                  "dependencies {",
+                  f"dependencies {{\n    {dep}",
+                  1
+              )
+
           arquivo.write_text(texto)
           PY
 
