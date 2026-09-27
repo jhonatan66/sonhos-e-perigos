@@ -28,6 +28,20 @@ jobs:
       - name: Copiar configurações AndroidX
         run: cp gradle.properties projeto/gradle.properties
 
+      - name: Corrigir AndroidManifest
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+
+          arquivo = Path("projeto/app/src/main/AndroidManifest.xml")
+          texto = arquivo.read_text()
+          texto = texto.replace(
+              'android:label="Sonhos & Perigos"',
+              'android:label="Sonhos &amp; Perigos"'
+          )
+          arquivo.write_text(texto)
+          PY
+
       - name: Compilar APK
         working-directory: projeto
         run: gradle assembleDebug
