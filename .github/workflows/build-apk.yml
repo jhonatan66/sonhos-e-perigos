@@ -24,6 +24,11 @@ jobs:
 
       - name: Extrair projeto
         run: unzip -q Sonhos_e_Perigos_Android.zip -d projeto
+
+      - name: Corrigir AndroidManifest
+        run: sed -i 's/Sonhos & Perigos/Sonhos \&amp; Perigos/' 
+         projeto/app/src/main/AndroidManifest.xml
+
         
       - name: Copiar configurações AndroidX
         run: cp gradle.properties projeto/gradle.properties
